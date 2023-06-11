@@ -18,24 +18,28 @@ const listItems = galleryItems
   .join("");
 
 galleryEl.insertAdjacentHTML("beforeend", listItems);
-galleryEl.addEventListener("click", onClick);
 
-function onClick(e) {
-  e.preventDefault();
+galleryEl.addEventListener("click", (event) => {
+  event.preventDefault();
 
-  const modalImg = basicLightbox.create(
-    `<img
-        width=100%"
-        height="100%"
-        src = ${e.target.dataset.source}
-      >`,
-    { onShow: () => galleryEl.addEventListener("keydown", onEscKeyPress) }
-  );
+  if (event.target.nodeName !== "IMG") {
+    return;
+  }
 
-  const onEscKeyPress = (e) => {
-    if (e.key === "Escape") modalImg.close();
-  };
+  const modalImg = basicLightbox.create(`<img
+          width="100%"
+          height="100%"
+          src = ${event.target.dataset.source}
+        >`);
+
   modalImg.show();
-}
 
+  galleryEl.addEventListener("keydown", onEscKeyPress);
+
+  function onEscKeyPress(event) {
+    if (event.key === "Escape") {
+      modalImg.close();
+    }
+  }
+});
 console.log(galleryItems);
