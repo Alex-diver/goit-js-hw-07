@@ -5,13 +5,13 @@ const galleryEl = document.querySelector(".gallery");
 
 const listItems = galleryItems
   .map(
-    (galleryItems) =>
+    ({ preview, original, description }) =>
       `<li class="gallery__item">
-      <a class="gallery__link" href=${galleryItems.original}>
+      <a class="gallery__link" href=${original}>
       <img class="gallery__image"
-         src=${galleryItems.preview}
-         data-source = ${galleryItems.original}
-         alt ='${galleryItems.description}'>
+         src=${preview}
+         data-source = ${original}
+         alt ='${description}'>
        </a>
         </li>`
   )
